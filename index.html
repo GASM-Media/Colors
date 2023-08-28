@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter Sounds and Videos</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #inputBox {
+            padding: 10px;
+            font-size: 18px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        #videoContainer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        #mainVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay-video {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="inputBox" placeholder="Enter a letter">
+    <div id="videoContainer"></div>
+    <script>
+        const videoContainer = document.getElementById('videoContainer');
+        const inputBox = document.getElementById('inputBox');
+        const overlayVideos = [];
+        let currentInput = '';
+
+        inputBox.addEventListener('keyup', handleKeyUp);
+
+        function handleKeyUp(event) {
+            const input = event.target.value.toLowerCase();
+
+            // Only proceed if the input has changed
+            if (input !== currentInput) {
+                currentInput = input;
+                playMedia(input);
+            }
+        }
+
+        function playMedia(input) {
+            if (input.length === 0) {
+                // Clear all videos when input is empty
+                clearVideos();
+                return;
+            }
+
+            const lastLetter = input[input.length - 1];
+
+            if (videos[lastLetter]) {
+                // Play media for the last entered letter
+                const { sound, video } = videos[lastLetter];
+
+                // Play sounds
+                if (sound) {
+                    const audio = new Audio(sound);
+                    audio.play();
+                }
+
+                // Play videos
+                if (video) {
+                    const videoElement = document.createElement('video');
+                    videoElement.src = video;
+                    videoElement.controls = true;
+                    videoElement.autoplay = true;
+                    videoElement.classList.add('overlay-video');
+                    videoContainer.appendChild(videoElement);
+
+                    setTimeout(() => {
+                        videoElement.style.opacity = '1';
+                    }, 10);
+
+                    overlayVideos.push(videoElement);
+
+                    if (overlayVideos.length > 5) {
+                        const removedVideo = overlayVideos.shift();
+                        removedVideo.remove();
+                    }
+                }
+            }
+        }
+
+        function clearVideos() {
+            overlayVideos.forEach(video => video.remove());
+            overlayVideos.length = 0;
+        }
+
+        // Register sounds and videos for each letter
+        const videos = {
+            'a': {
+                sound: './Media/A.mp3',
+                video: './Media/A.mp4'
+            },
+            'b': {
+                sound: './Media/B.mp3',
+                video: './Media/B.mp4'
+            },
+            'c': {
+                sound: './Media/C.mp3',
+                video: './Media/C.mp4'
+            },
+            'd': {
+                sound: './Media/D.mp3',
+                video: './Media/D.mp4'
+            },
+            'e': {
+                sound: './Media/E.mp3',
+                video: './Media/E.mp4'
+            },
+            'f': {
+                sound: './Media/F.mp3',
+                video: './Media/F.mp4'
+            },
+            'g': {
+                sound: './Media/G.mp3',
+                video: './Media/G.mp4'
+            },
+            'h': {
+                sound: './Media/H.mp3',
+                video: './Media/H.mp4'
+            },
+            'i': {
+                sound: './Media/I.mp3',
+                video: './Media/I.mp4'
+            },
+            'j': {
+                sound: './Media/J.mp3',
+                video: './Media/J.mp4'
+            },
+            'k': {
+                sound: './Media/K.mp3',
+                video: './Media/K.mp4'
+            },
+            'l': {
+                sound: './Media/L.mp3',
+                video: './Media/L.mp4'
+            },
+            'm': {
+                sound: './Media/M.mp3',
+                video: './Media/M.mp4'
+            },
+            'n': {
+                sound: './Media/N.mp3',
+                video: './Media/N.mp4'
+            },
+            'o': {
+                sound: './Media/O.mp3',
+                video: './Media/O.mp4'
+            },
+            'p': {
+                sound: './Media/P.mp3',
+                video: './Media/P.mp4'
+            },
+            'q': {
+                sound: './Media/Q.mp3',
+                video: './Media/Q.mp4'
+            },
+            'r': {
+                sound: './Media/R.mp3',
+                video: './Media/R.mp4'
+            },
+            's': {
+                sound: './Media/S.mp3',
+                video: './Media/S.mp4'
+            },
+            't': {
+                sound: './Media/T.mp3',
+                video: './Media/T.mp4'
+            },
+            'u': {
+                sound: './Media/U.mp3',
+                video: './Media/U.mp4'
+            },
+            'v': {
+                sound: './Media/V.mp3',
+                video: './Media/V.mp4'
+            },
+            'w': {
+                sound: './Media/W.mp3',
+                video: './Media/W.mp4'
+            },
+            'x': {
+                sound: './Media/X.mp3',
+                video: './Media/X.mp4'
+            },
+            'y': {
+                sound: './Media/Y.mp3',
+                video: './Media/Y.mp4'
+            },
+            'z': {
+                sound: './Media/Z.mp3',
+                video: './Media/Z.mp4'
+            }
+        };
+
+
+    </script>
+</body>
+
+</html>
