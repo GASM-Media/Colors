@@ -99,6 +99,7 @@
                     videoElement.controls = true;
                     videoElement.autoplay = true;
                     videoElement.playsinline = true; // Add the playsinline attribute
+                    videoElement.setAttribute('webkit-playsinline', 'true'); // Add the webkit-playsinline attribute
                     videoElement.classList.add('overlay-video');
                     videoContainer.appendChild(videoElement);
 
