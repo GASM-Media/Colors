@@ -98,6 +98,7 @@
                     videoElement.src = video;
                     videoElement.controls = true;
                     videoElement.autoplay = true;
+                    videoElement.playsinline = true; // Add the playsinline attribute
                     videoElement.classList.add('overlay-video');
                     videoContainer.appendChild(videoElement);
 
